@@ -4,21 +4,33 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "server": "nodemon server.js"
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "migrate": "knex migrate:latest",
+    "rollback": "knex migrate:rollback",
+    "seed": "knex seed:run",
+    "migrateh": "heroku run knex migrate:latest -a familiy-secret-recipes",
+    "rollbackh": "heroku run knex migrate:rollback -a familiy-secret-recipes",
+    "databaseh": "heroku pg:psql -a familiy-secret-recipes",
+    "seedh": "heroku run knex seed:run -a familiy-secret-recipes",
+    "test": "cross-env NODE_ENV=testing jest --verbose --runInBand",
+    "deploy": "git push heroku main"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Family-Recipes-1-31-22/backend.git"
+  "engines": {
+    "node": "16.13.1"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "helmet": "4.6.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.95.14",
     "sqlite3": "^5.0.2",
     "cors": "^2.8.5",
     "eslint": "^8.8.0",
-    "dotenv": "^15.0.0"
+    "dotenv": "^15.0.0",
+    "knex-cleaner": "1.3.1",
+    "pg": "8.7.1"
   },
   "devDependencies": {
       "@types/jest": "^27.0.3",
@@ -28,5 +40,9 @@
       "knex-cleaner": "^1.3.1",
       "nodemon": "^2.0.15",
       "supertest": "^6.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Family-Recipes-1-31-22/backend.git"
   }
 }
